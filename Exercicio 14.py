@@ -1,28 +1,17 @@
-dia = int(input("Digite o dia: "))
-mes = int(input("Digite o mês: "))
-ano = int(input("Digite o ano: "))
+dia = int(input("Dia: "))
+mes = int(input("Mês: "))
+ano = int(input("Ano: "))
 
-if mes < 1 or mes > 12:
-    print("Data inválida!")
-else:
-   
-    if (ano % 4 == 0 and ano % 100 != 0) or (ano % 400 == 0):
-        bissexto = True
-    else:
-        bissexto = False
+bissexto = (ano % 4 == 0 and ano % 100 != 0) or (ano % 400 == 0)
 
-    
-    if mes in [1, 3, 5, 7, 8, 10, 12]:
-        max_dias = 31
-    elif mes in [4, 6, 9, 11]:
-        max_dias = 30
-    else:  # fevereiro
-        if bissexto:
-            max_dias = 29
-        else:
-            max_dias = 28
+match mes:
+    case 2:
+        limite = 29 if bissexto else 28
+    case 4 | 6 | 9 | 11:
+        limite = 30
+    case 1 | 3 | 5 | 7 | 8 | 10 | 12:
+        limite = 31
+    case _:
+        limite = -1
 
-    if dia < 1 or dia > max_dias:
-        print("Data inválida!")
-    else:
-        print("Data válida!")
+print("Data válida!" if 1 <= dia <= limite else "Data inválida!")
